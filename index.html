@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Mini Discord</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="login">
+  <input type = "text" id="logemail" placeholder="Login with Email"/>
+  <input type="password" id="logpass" placeholder="Login Password"/>
+  <button type="button" id="login">Click Here To Login</button>
+    <h2>
+    No Account? Register Now.
+  </h2>
+  <button id="goReg"> Register</button>
+</div>
+<div id="register">
+  <input type="text" id="regemail" placeholder="Register Email"/>
+  <input type = "text" id="username" placeholder="Register Username">
+  <input type="password" id="regpass1" placeholder="Register Password"/>
+  <input type="password" id="regpass2" placeholder="Confirm Password"/>
+  <button type="button" id="register">Click Here To Register</button>
+  <h2>
+    Have account? Log in now.
+  <button id="goLog"> Login</button>
+</div>
+<div id="home">
+  <h1 id="header"> Welcome to the home chat</h1>
+  <ul id="chats"></ul>
+  <form id="form">
+    <input id="text"></input>
+    <button id="send_message"> Send </button>
+    <button id="logout">Logout</button>
+  </form>
+  <hr>
+</div>
+<div id="allChannels">
+  <ul id="channels"> </ul>
+  <button id="createPage"> Create New Page </button>
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script><script type="module" src="./script.js"></script>
+
+</body>
+</html>

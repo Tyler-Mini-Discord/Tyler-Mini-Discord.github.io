@@ -2,7 +2,7 @@ body{
   background-color: black;
   color: white
 }
-.login{
+#login{
   margin:auto;
   width:50%;
 }

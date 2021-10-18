@@ -7,8 +7,10 @@ body{
   width:auto;
 }
 
-#login button{
+#loginButton{
   background-color: aqua;
+  text-size-adjust: 20px;
 }
+
 
 

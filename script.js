@@ -67,6 +67,11 @@ fbauth.onAuthStateChanged(auth, user => {
         $("#home").show();
         $("#allChannels").show();
       } else {
+        document.getElementById("logemail").value='';
+        document.getElementById("logpass").value='';
+        document.getElementById("regemail").value='';
+        document.getElementById("regpass1").value='';
+        document.getElementById("regpass2").value='';
         $("#register").hide();
         $("#home").hide();
         $("#login").show();

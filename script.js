@@ -65,10 +65,12 @@ fbauth.onAuthStateChanged(auth, user => {
         $("#register").hide();
         $("#login").hide();
         $("#home").show();
+        $("allChannels").show();
       } else {
         $("#register").hide();
         $("#home").hide();
         $("#login").show();
+        $("allChannels").hide();
       }
 });
 

@@ -4,13 +4,17 @@ body{
 }
 #login{
   text-align: center;
-  width:auto;
+  width: auto;
 }
 
-#loginButton{
+#login button{
   background-color: aqua;
-  border: white;
+  border-color: white;
+  border-width:thick;
   font-size: 30px;
+  font-weight: bold;
+  color:rgb(143, 31, 143);
+  width: 300px;
 }
 
 

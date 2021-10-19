@@ -201,6 +201,14 @@ let editChat=function(event){
       let newMsg = $(newText).val();
       let msgRef = rtdb.child(chatRef, $id);
       let textRef = rtdb.child(msgRef, "chat");
+      let messUserRef=rtdb.child(msgRef,"user");
+      let messUser='';
+      rtdb.get(messUserRef).then(ss=>{
+        messUser=ss.val();
+      })
+      if(current_user!=messUser){
+        return;
+      }
       rtdb.set(textRef, newMsg);
     }
   );

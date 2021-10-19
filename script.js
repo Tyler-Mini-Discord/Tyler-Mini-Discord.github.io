@@ -30,6 +30,7 @@ let chatRef = rtdb.ref(db,"/chats/home");
 let pageRef=rtdb.ref(db,"/pages")
 
 let current_user="";
+let current_user_id=""
 let messUser="";
 let currPage="home";
 
@@ -65,6 +66,7 @@ fbauth.onAuthStateChanged(auth, user => {
         loadChats();
         loadPages();
         let usernameRef=rtdb.ref(db,`/users/${user.uid}/username`)
+        current_user_id=user.uid;
         window.history.pushState('', 'Title',`/${currPage}`);
         rtdb.get(usernameRef).then(ss=>{
           current_user=ss.val();
@@ -180,8 +182,7 @@ var addChat = function(){
   if( text.length ==0){
     return false;
   }
-  alert(current_user);
-  let x={"chat":text,"user":current_user}
+  let x={"chat":text,"user":current_user,"uid":current_user_id}
   id=rtdb.push(chatRef,x);
   input.value="";
   loadChats();
@@ -206,9 +207,9 @@ let editChat=function(event){
       let newMsg = $(newText).val();
       let msgRef = rtdb.child(chatRef, $id);
       let textRef = rtdb.child(msgRef, "chat");
-      let messUserRef=rtdb.child(msgRef,"user");
+      let messUserRef=rtdb.child(msgRef,"uid");
       rtdb.get(messUserRef).then(ss=>{
-        if(current_user.localeCompare(ss.val())){
+        if(current_user_id.localeCompare(ss.val())){
           loadChats();
           return;
         }

@@ -209,7 +209,6 @@ let editChat=function(event){
       let messUserRef=rtdb.child(msgRef,"user");
       rtdb.get(messUserRef).then(ss=>{
         if(current_user.localeCompare(ss.val())){
-          alert("here");
           loadChats();
           return;
         }

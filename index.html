@@ -18,34 +18,48 @@
   <br>
   <button type="button" id="loginButton">Click Here To Login</button>
     <h2>
-    No Account? Register Now.
+    No Account?
+    <br>
+    Register Now.
   </h2>
   <button type="button" id="goReg"> Register</button>
 </div>
 <div id="register">
   <input type="text" id="regemail" placeholder="Register Email"/>
+  <br>
   <input type = "text" id="username" placeholder="Register Username">
+  <br>
   <input type="password" id="regpass1" placeholder="Register Password"/>
+  <br>
   <input type="password" id="regpass2" placeholder="Confirm Password"/>
+  <br>
+  <br>
   <button type="button" id="register">Click Here To Register</button>
   <h2>
-    Have account? Log in now.
+    Have account?
+    <br>
+    Log in now.
+    <br>
   <button id="goLog"> Login</button>
 </div>
 <div id="home">
   <h1 id="header"> Welcome to the home chat</h1>
+  <div id="home2">
+    <div>
   <ul id="chats"></ul>
   <form id="form">
     <input id="text"></input>
     <button id="send_message"> Send </button>
     <button id="logout">Logout</button>
   </form>
-  <hr>
+  </div>
+  <div id="allChannels">
+    <div id="channels"></div>
+    <button id="createPage"> Create New Page </button>
+  </div>
 </div>
-<div id="allChannels">
-  <ul id="channels"> </ul>
-  <button id="createPage"> Create New Page </button>
 </div>
+
 <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script><script type="module" src="./script.js"></script>
 

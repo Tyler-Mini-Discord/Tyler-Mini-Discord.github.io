@@ -5,6 +5,13 @@ body{
 #login{
   text-align: center;
   width: auto;
+  font-size:30px;
+}
+
+#register{
+  text-align: center;
+  width: auto;
+  font-size:30px;
 }
 
 #login button{
@@ -15,6 +22,68 @@ body{
   font-weight: bold;
   color:rgb(143, 31, 143);
   width: 300px;
+}
+
+#register button{
+  background-color: aqua;
+  border-color: white;
+  border-width:thick;
+  font-size: 30px;
+  font-weight: bold;
+  color:rgb(143, 31, 143);
+  width: 300px;
+}
+
+#login input{
+  width: 300px;
+  height: 70px;
+  font-size:30px;
+  text-align: center;
+}
+
+#register input{
+  width: 300px;
+  height: 70px;
+  font-size:30px;
+  text-align: center;
+}
+
+#home2{
+  display:inline-flex;
+  flex-direction:row-reverse;
+  align-items: left;
+  gap: 400px;
+}
+
+#header{
+  font-size: 70px;
+  text-align: center;
+}
+
+#chats{
+  overflow:auto;
+  font-size: 30px;
+  text-align: center;
+  display: inline;
+  list-style-type: none;
+}
+
+#channels button{
+  margin-left:auto;
+  margin-top: 0;
+  display:block;
+  text-align:left;
+  margin-left:0;
+}
+
+#allChannels button{
+  background-color: aqua;
+  border-color: white;
+  border-width:thick;
+  font-size: 20px;
+  font-weight: bold;
+  color:rgb(143, 31, 143);
+  width: 150px;
 }
 
 

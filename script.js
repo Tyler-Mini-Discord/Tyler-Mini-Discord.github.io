@@ -30,18 +30,21 @@ let chatRef = rtdb.ref(db,"/chats/home");
 let pageRef=rtdb.ref(db,"/pages")
 
 let current_user="";
-let currPage="";
+let currPage="home";
 
 $("#goReg").click(()=>{
+  window.history.pushState('', 'Title', '/register');
   $("#login").hide();
   $("#register").show();
 });
 $("#goLog").click(()=>{
+  window.history.pushState('', 'Title', '/');
   $("#login").show();
   $("#register").hide();
 })
 
 $("#logout").click(event=>{
+  window.history.pushState('', 'Title', '/');
   event.preventDefault(event);
   fbauth.signOut(auth);
   current_user="";
@@ -59,6 +62,7 @@ fbauth.onAuthStateChanged(auth, user => {
         loadChats();
         loadPages();
         let usernameRef=rtdb.ref(db,`/users/${user.uid}/username`)
+        window.history.pushState('', 'Title',`/${currPage}`);
         rtdb.get(usernameRef).then(ss=>{
           current_user=ss.val();
         })
@@ -136,8 +140,10 @@ var loadPages=function(){
       pageIDS.map(key=>{
       let pageButton=$(`<button id="${key}">${pageObj[key].name}</button>`);
         pageButton.click(()=>{
-          $("#header").html(`Welcome to the ${pageObj[key].name} chat`)
-          chatRef=rtdb.ref(db,`/chats/${pageObj[key].name}`)
+          currPage=pageObj[key].name;
+          $("#header").html(`Welcome to the ${currPage} chat`)
+          window.history.pushState('', 'Title', `/${currPage}`);
+          chatRef=rtdb.ref(db,`/chats/${currPage}`)
           loadChats();
         })
       $("#channels").append(pageButton);
@@ -153,11 +159,9 @@ var loadChats=function(){
     if (chatObj!= null){
       let chatIDS = Object.keys(chatObj);
       chatIDS.map(key=>{
-      let $li=document.createElement("li")
-          //$(`<li id="${key}">${chatObj[key].user}: ${chatObj[key].chat}</li>`);
-      $li.innerHTML = `${chatObj[key].user}: ${chatObj[key].chat}`
-      $(chats).append($li);
-      $li.click(editChat);
+      let li=$(`<li id="${key}">${chatObj[key].user}: ${chatObj[key].chat}</li>`);
+      li.click(editChat);
+      $(chats).append(li);
     });
     }
 })
@@ -211,7 +215,7 @@ $(createPage).click(event=>{
   $(newbutton).click(event=>{
     if (pageName.value != ""){
       rtdb.push(pageRef,{"name":pageName.value})
-      currPage=pageName.value
+      currPage=pageName.value;
       chatRef=rtdb.ref(db,`/chats/${currPage}`)
       loadChats();
       pageName.remove();

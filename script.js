@@ -93,6 +93,10 @@ $("#register").on("click", ()=>{
     alert("Passwords don't match");
     return;
   }
+  if($("#username").val() == ''){
+    alert("Please create username");
+    return;
+  }
   fbauth.createUserWithEmailAndPassword(auth, email, p1).then(somedata=>{
     let uid = somedata.user.uid;
     let userRoleRef = rtdb.ref(db, `/users/${uid}/roles/user`);

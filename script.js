@@ -30,7 +30,10 @@ let chatRef = rtdb.ref(db,"/chats/home");
 let pageRef=rtdb.ref(db,"/pages")
 
 let current_user="";
+let messUser="";
 let currPage="home";
+
+export const escapeHtml = str => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
 $("#goReg").click(()=>{
   window.history.pushState('', 'Title', '/register');
@@ -142,7 +145,7 @@ var loadPages=function(){
     if(pageObj!=null){
       let pageIDS = Object.keys(pageObj);
       pageIDS.map(key=>{
-      let pageButton=$(`<button id="${key}">${pageObj[key].name}</button>`);
+      let pageButton=$(`<button id="${key}">${pageObj[key].name.replace('<', '')}</button>`);
         pageButton.click(()=>{
           currPage=pageObj[key].name;
           $("#header").html(`Welcome to the ${currPage} chat`)
@@ -163,10 +166,10 @@ var loadChats=function(){
     if (chatObj!= null){
       let chatIDS = Object.keys(chatObj);
       chatIDS.map(key=>{
-      let li=$(`<li id="${key}">${chatObj[key].user}: ${chatObj[key].chat}</li>`);
-      li.click(editChat);
-      $(chats).append(li);
-    });
+        let li=$(`<li id="${key}">${chatObj[key].user.replace('<', '')}: ${chatObj[key].chat.replace('<', '')}</li>`);
+        $(chats).append(li);
+        li.click(editChat);
+      });
     }
 })
 }
@@ -177,9 +180,11 @@ var addChat = function(){
   if( text.length ==0){
     return false;
   }
+  alert(current_user);
   let x={"chat":text,"user":current_user}
   id=rtdb.push(chatRef,x);
   input.value="";
+  loadChats();
   return false;
 }
 $("#form").click(addChat);
@@ -202,14 +207,16 @@ let editChat=function(event){
       let msgRef = rtdb.child(chatRef, $id);
       let textRef = rtdb.child(msgRef, "chat");
       let messUserRef=rtdb.child(msgRef,"user");
-      let messUser='';
       rtdb.get(messUserRef).then(ss=>{
-        messUser=ss.val();
-      })
-      if(current_user!=messUser){
-        return;
-      }
-      rtdb.set(textRef, newMsg);
+        if(current_user.localeCompare(ss.val())){
+          alert("here");
+          loadChats();
+          return;
+        }
+        else{
+          rtdb.set(textRef, newMsg);
+        }
+      }); 
     }
   );
   $(cancelButton).click(()=>{

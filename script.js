@@ -147,15 +147,18 @@ var loadPages=function(){
     if(pageObj!=null){
       let pageIDS = Object.keys(pageObj);
       pageIDS.map(key=>{
-      let pageButton=$(`<button id="${key}">${pageObj[key].name.replace('<', '')}</button>`);
-        pageButton.click(()=>{
-          currPage=pageObj[key].name;
-          $("#header").html(`Welcome to the ${currPage} chat`)
-          window.history.pushState('', 'Title', `/${currPage}`);
-          chatRef=rtdb.ref(db,`/chats/${currPage}`)
-          loadChats();
-        })
+      //let pageButton=$(`<button id="${key}">${pageObj[key].name.replace('<', '')}</button>`);
+      let pageButton=document.createElement("button");
+      pageButton.id=key;
+      pageButton.innerText=pageObj[key].name;  
       $("#channels").append(pageButton);
+      document.querySelector(`#${key}`).addEventListener('click',()=>{
+        currPage=pageObj[key].name;
+        $("#header").html(`Welcome to the ${currPage} chat`)
+        window.history.pushState('', 'Title', `/${currPage}`);
+        chatRef=rtdb.ref(db,`/chats/${currPage}`)
+        loadChats();
+      })
       });
     }
   });
@@ -165,6 +168,7 @@ var loadChats=function(){
   rtdb.onValue(chatRef, ss=>{
     let chatObj = ss.val();
     $(chats).empty();
+    console.log("hi");
     if (chatObj!= null){
       let chatIDS = Object.keys(chatObj);
       chatIDS.map(key=>{
@@ -172,7 +176,7 @@ var loadChats=function(){
         li.id = key;
         li.innerText=`${chatObj[key].user}: ${chatObj[key].chat}`;
         $(chats).append(li);
-        li.click(editChat);
+        document.querySelector(`#${key}`).addEventListener('click',editChat);
       });
     }
 })
@@ -204,26 +208,26 @@ let editChat=function(event){
   var cancelButton = parent.appendChild(document.createElement("button"));
   cancelButton.textContent = "Cancel";
   editButton.textContent = "Edit";
+  $(cancelButton).click(evt=>{
+      loadChats();
+      return false;
+  });
   $(editButton).click(
     evt=>{
+      $(chats).empty();
       let newMsg = $(newText).val();
       let msgRef = rtdb.child(chatRef, $id);
       let textRef = rtdb.child(msgRef, "chat");
       let messUserRef=rtdb.child(msgRef,"uid");
       rtdb.get(messUserRef).then(ss=>{
-        if(current_user_id.localeCompare(ss.val())){
-          loadChats();
-          return;
-        }
-        else{
+        if(!(current_user_id.localeCompare(ss.val()))){
           rtdb.set(textRef, newMsg);
-        }
+          return;
+        } 
       }); 
-    }
-  );
-  $(cancelButton).click(()=>{
-    loadChats();
-  });
+      loadChats();
+      return false;
+    });
   return false;  
 }
 

@@ -168,7 +168,9 @@ var loadChats=function(){
     if (chatObj!= null){
       let chatIDS = Object.keys(chatObj);
       chatIDS.map(key=>{
-        let li=$(`<li id="${key}">${chatObj[key].user.replace('<', '')}: ${chatObj[key].chat.replace('<', '')}</li>`);
+        let li=document.createElement('li');
+        li.id = key;
+        li.innerText=`${chatObj[key].user}: ${chatObj[key].chat}`;
         $(chats).append(li);
         li.click(editChat);
       });

@@ -26,3 +26,4 @@ Also, there is nothing stopping the user from creating multiple edit boxes by cl
 ## Source Code Evaluation
 
 Going through my partners commit history, it was very obvious that he took a very systematic and organized approach to this project. Including a to do list that he edited along the way, as well as descriptive commit messages to easily follow his progress, it was obvious he put in a great deal of effort and thought into every step of his project. It was 
+also interesting to see that his entire website was only made up of 1.7% HTML (not really a statement on how he did, just thought it was interesting how little HTML goes into a web app).
